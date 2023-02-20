@@ -91,39 +91,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
-      UserDetails user = User.withUsername("bill")
-              .password("1234")
-              .authorities("read")
-              .build();
-         return new InMemoryUserDetailsManager(user);
-    }
-
-    @Bean
-    public RegisteredClientRepository registeredClientRepository(){
-        var registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client")
-                .clientSecret("secret")
-                .scope(OidcScopes.OPENID)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("https://springone.io/authorized") //change with ip address
-                .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofHours(10))
-                        .refreshTokenTimeToLive(Duration.ofHours(10))
-                        .build()
-                )
-                .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(true)
-                        .build())
-                .build();
-        return new InMemoryRegisteredClientRepository(registeredClient);
-    }
-
-
-
-    @Bean
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
