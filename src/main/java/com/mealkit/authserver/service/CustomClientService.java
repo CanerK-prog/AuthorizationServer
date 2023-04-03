@@ -25,7 +25,7 @@ public class CustomClientService implements RegisteredClientRepository {
 
     @Override
     public RegisteredClient findById(String id) {
-        Optional<Client> client = clientRepository.findById(Long.valueOf(id));
+        Optional<Client> client = clientRepository.findById(id);
         if (client.isPresent()){
             return Client.from(client.get());
         }
